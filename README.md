@@ -25,6 +25,8 @@ Next.js を Rails や Laravel などのように MVC フレームワークのよ
 
 Next.js から Remix に変えたり、Vue.js にしたりとかを考慮し、コントローラではユースケース（アプリケーション層）を呼ぶだけにする。
 
+認証はコントローラー扱いの page.tsx で行う
+
 ちなみに zenn にあったこれはだいぶ自分の理想に近く、出力も複数あったり置き換えがしやすい形にできていると思う。  
 https://zenn.dev/panda_program/articles/clean-architecture-application#web-%E3%81%8B%E3%82%89%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99
 
