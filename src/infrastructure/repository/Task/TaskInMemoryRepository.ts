@@ -1,4 +1,10 @@
-import { Task, ITaskRepository, TaskId, TaskName, UserId } from "@/domain";
+import {
+  Task,
+  ITaskRepository,
+  TaskId,
+  TaskName,
+  UserId,
+} from "@/domain/models";
 
 /**
  * タスクリポジトリ

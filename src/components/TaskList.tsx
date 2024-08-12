@@ -1,4 +1,4 @@
-import { Task } from "@/domain";
+import { Task } from "@/domain/models";
 
 type Props = {
   tasks: Task[];

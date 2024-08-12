@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Task, TaskId, TaskName } from "../Task";
-import { UserId } from "@/domain/User";
+import { UserId } from "@/domain/models/User";
 import { experimental_taintUniqueValue } from "react";
 
 describe("Task", () => {

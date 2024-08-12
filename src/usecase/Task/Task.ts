@@ -1,4 +1,4 @@
-import { Task, TaskId, TaskName, UserId } from "@/domain";
+import { Task, TaskId, TaskName, UserId } from "@/domain/models";
 import { TaskInMemoryRepository } from "@/infrastructure/repository";
 
 /**
