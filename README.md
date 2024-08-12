@@ -30,3 +30,33 @@ Next.js から Remix に変えたり、Vue.js にしたりとかを考慮し、�
 ちなみに zenn にあったこれはだいぶ自分の理想に近く、出力も複数あったり置き換えがしやすい形にできていると思う。  
 https://zenn.dev/panda_program/articles/clean-architecture-application#web-%E3%81%8B%E3%82%89%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99
 
+## Taskを実装
+
+### ドメイン層
+ビジネスロジックを持たせたドメインオブジェクトを作る（DDD的な感じ）  
+リポジトリで使うインターフェースもここで定義して依存をドメイン側に持たせる  
+
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/domain/Task/index.ts
+
+
+### インフラ層
+リポジトリを作る  
+ドメイン層で定義したインターフェースを使って実装する  
+置き換えが可能なものにしたいので RDB や インメモリ など複数の置き換え後のものはそれぞれ実装する（DIで環境ごとに出しわけたい）  
+本当は static なメソッドで実装したかったが、 TypeScript のインターフェースだとそれができなくて tips 的な回避をしないといけないぽかったのでインスタンスを作って実行する形にしてある
+
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/infrastructure/repository/Task/TaskInMemoryRepository.ts
+
+
+### ユースケース層
+画面から呼ばれるユースケースを実装する  
+本当は static なメソッドにしたかったが、リポジトリの初期化ができなくていい感じにならなかったのでインスタンスを作って実行する形にしてある（改善できたらしたい）  
+
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/usecase/Task/index.ts
+
+
+### プレゼンテーション層
+Next.js のルーティングがあるのでそれをそのまま使う  
+コントローラー兼プレゼンターなので、ユースケースを呼んで必要なデータを組み立てて画面を表示する  
+
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/app/page.tsx
