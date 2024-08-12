@@ -60,3 +60,9 @@ Next.js のルーティングがあるのでそれをそのまま使う
 コントローラー兼プレゼンターなので、ユースケースを呼んで必要なデータを組み立てて画面を表示する  
 
 https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/app/page.tsx
+
+
+## TODO
+- [ ] テストを実装する
+- [ ] DIを導入する
+- [ ] Server Actions で CRUD を実装する
