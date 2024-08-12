@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js の App Router でクリーンアーキテクチャを実装する
 
-## Getting Started
+色々調べた結果の検討段階なので、結局はオニオンアーキテクチャに近い形で検討中
 
-First, run the development server:
+```
+/app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+├── domain # ドメイン層
+├── usecase # アプリケーション層（わかりにくいのでユースケースにする）
+├── infrastructure # （インフラ層）
+└── app # プレゼンテーション層（コントローラーの役割としてそのまま使う）
+    └── page.tsx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 考えたこと
+クリーンアーキテクチャをフロントエンドでやろうとすると合わないと思う。  
+クリーンアーキテクチャ自体はビジネスロジックの依存関係を整理し、入力、出力、DB（外部接続）などを変更する際にビジネスロジックに影響がない形にするのが目的のはず。  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+なので React などのフロントエンドフレームワーク上で実現しようとするとそれは少しイメージが違う気がしている。  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+むしろ React などは置き換えられる可能性を残しておくべきでバックエンドの処理を良い感じに分離をするのが良いと思っている。
 
-## Learn More
+バックエンドを完全に分離させて API として実装し、それを Next.js で実行して使うこともできるが、せっかくサーバーコンポーネントだったり TypeScript でまとめてかけたりするメリットを損なってほどやるべきかどうかは検討が必要。  
 
-To learn more about Next.js, take a look at the following resources:
+Next.js を Rails や Laravel などのように MVC フレームワークのように認識し、バックエンド側をクリーンアーキテクチャを元に綺麗に分離してコントローラーやプレゼンターの部分が app/page.tsx になるという理解でやると良い気がする。  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js から Remix に変えたり、Vue.js にしたりとかを考慮し、コントローラではユースケース（アプリケーション層）を呼ぶだけにする。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ちなみに zenn にあったこれはだいぶ自分の理想に近く、出力も複数あったり置き換えがしやすい形にできていると思う。  
+https://zenn.dev/panda_program/articles/clean-architecture-application#web-%E3%81%8B%E3%82%89%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
