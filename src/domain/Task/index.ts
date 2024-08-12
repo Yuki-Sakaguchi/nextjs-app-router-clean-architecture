@@ -43,7 +43,8 @@ export class TaskName {
 /**
  * リポジトリのインターフェース
  */
-export interface TaskRepository {
+export interface ITaskRepository {
+  getAll(): Task[];
   findById(taskId: TaskId): Task;
   insert(task: Task): void;
   update(task: Task): void;
