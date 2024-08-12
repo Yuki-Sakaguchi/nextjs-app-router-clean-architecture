@@ -34,7 +34,7 @@ export class TaskId {
  */
 export class TaskName {
   constructor(public val: string) {
-    if (val.length < 0 || val.length >= 30) {
+    if (val.length === 0 || val.length >= 30) {
       throw new Error("タスク名は0〜30文字で指定してください");
     }
   }
