@@ -26,15 +26,15 @@ export class Task {
  * タスクID
  */
 export class TaskId {
-  constructor(public val = uuidv4()) {}
+  constructor(public value = uuidv4()) {}
 }
 
 /**
  * タスク名
  */
 export class TaskName {
-  constructor(public val: string) {
-    if (val.length === 0 || val.length >= 30) {
+  constructor(public value: string) {
+    if (value.length === 0 || value.length >= 30) {
       throw new Error("タスク名は0〜30文字で指定してください");
     }
   }

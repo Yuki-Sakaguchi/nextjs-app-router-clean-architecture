@@ -9,16 +9,16 @@ export function TaskList({ tasks }: Props) {
     <ul className="grid gap-2">
       {tasks.map((task) => (
         <li
-          key={task.id.val}
+          key={task.id.value}
           className="py-3 px-4 border border-gray-300 rounded-md"
         >
-          id: {task.id.val}
+          id: {task.id.value}
           <br />
-          name: {task.name.val}
+          name: {task.name.value}
           <br />
           date: {task.dueDate.toDateString()}
           <br />
-          userId: {task.userId.val}
+          userId: {task.userId.value}
         </li>
       ))}
     </ul>
