@@ -66,3 +66,5 @@ https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main
 - [ ] テストを実装する
 - [ ] DIを導入する
 - [ ] Server Actions で CRUD を実装する
+- [ ] リポジトリをDBに繋げるのとインメモリを実装する
+- [ ] ビューを変えてみる（Next.jsからRemixとか）
