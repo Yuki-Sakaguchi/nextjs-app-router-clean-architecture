@@ -107,10 +107,23 @@ https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main
   - `*.test.ts` で実行とする（広いテスト）
   - Playwright
 
+## DIの実装
+以下で本番と開発で使うクラスを設定する  
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/di/config.ts#L9-L17
+
+使うところで `container.resolve()` でクラスを呼び出す  
+これで環境ごとに使われるクラスが変わる  
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/usecase/Task/Task.ts#L15-L17
+
+サーバーのインスタンスが生成されるときに一度だけ設定を読み込ませるように `instrumentation.ts` を作る  
+https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/instrumentation.ts  
+https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation  
+
+
 
 ## TODO
 - [x] テストを実装する
-- [ ] DIを導入する
+- [x] DIを導入する
 - [ ] Server Actions で CRUD を実装する
 - [ ] リポジトリをDBに繋げるのとインメモリを実装する
 - [ ] ビューを変えてみる（Next.jsからRemixとか）
