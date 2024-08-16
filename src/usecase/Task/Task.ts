@@ -1,11 +1,22 @@
-import { Task, TaskId, TaskName, UserId } from "@/domain/models";
-import { TaskInMemoryRepository } from "@/infrastructure/repository";
+import {
+  type ITaskRepository,
+  Task,
+  TaskId,
+  TaskName,
+  UserId,
+} from "@/domain/models";
+import { container } from "@/di/inversify.config";
+import { TYPES } from "@/di/types";
 
 /**
  * タスクを生成する
  */
 export class TaskUseCase {
-  private taskRepository = new TaskInMemoryRepository(); // DIで差し替えたい
+  private taskRepository: ITaskRepository;
+
+  constructor() {
+    this.taskRepository = container.get<ITaskRepository>(TYPES.ITaskRepository);
+  }
 
   create(taskName: string, userId: UserId, dueDate: Date): TaskId {
     const task = Task.create(new TaskName(taskName), userId, dueDate);

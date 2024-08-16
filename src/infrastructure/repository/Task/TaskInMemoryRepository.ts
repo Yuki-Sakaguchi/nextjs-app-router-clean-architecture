@@ -1,3 +1,4 @@
+import { injectable } from "inversify";
 import {
   Task,
   ITaskRepository,
@@ -10,8 +11,10 @@ import {
  * タスクリポジトリ
  * インメモリで実装するもの
  */
+@injectable()
 export class TaskInMemoryRepository implements ITaskRepository {
   getAll() {
+    console.log("TaskInMemoryRepository getAll");
     // TODO: 実際はDBから取得したタスクを返す
     const taskRaw = {
       taskName: "new task name",
@@ -28,6 +31,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
 
   findById(taskId: TaskId): Task {
     // TODO: 実際はDBから取得したタスクを返す
+    console.log("TaskInMemoryRepository findById");
     const taskRaw = {
       taskName: "new task name",
       userId: new UserId(),
@@ -43,11 +47,13 @@ export class TaskInMemoryRepository implements ITaskRepository {
 
   insert(task: Task): void {
     // TODO: 実際はDBにTaskを追加する
+    console.log("TaskInMemoryRepository insert");
     console.log("taskをインサートしました");
   }
 
   update(task: Task): void {
     // TODO: 実際はDBのTaskを更新する
+    console.log("TaskInMemoryRepository update");
     console.log("taskをアップデートしました");
   }
 }
