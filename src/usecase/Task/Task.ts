@@ -5,18 +5,16 @@ import {
   TaskName,
   UserId,
 } from "@/domain/models";
-import { container } from "@/di/inversify.config";
 import { TYPES } from "@/di/types";
+import { container } from "@/di/config";
 
 /**
  * タスクを生成する
  */
 export class TaskUseCase {
-  private taskRepository: ITaskRepository;
-
-  constructor() {
-    this.taskRepository = container.get<ITaskRepository>(TYPES.ITaskRepository);
-  }
+  private taskRepository: ITaskRepository = container.resolve(
+    TYPES.ITaskRepository
+  );
 
   create(taskName: string, userId: UserId, dueDate: Date): TaskId {
     const task = Task.create(new TaskName(taskName), userId, dueDate);
