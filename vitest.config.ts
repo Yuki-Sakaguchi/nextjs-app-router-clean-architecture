@@ -8,7 +8,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "happy-dom",
-    include: ["**/*.spec.?(c|m)[jt]s?(x)"], // *.spec だけ実行にする、*.testはE2E用にする
+    include: ["**/tests/*.(spec|test).?(c|m)[jt]s?(x)"], // *.spec だけ実行にする、*.testはE2E用にする
   },
   resolve: {
     alias: {

@@ -98,13 +98,11 @@ https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main
 ### テストライブラリの使い分け
 
 - ユニットテスト
-  - `*.spec.ts` で実行とする(狭いテスト)
   - バックエンド
     - vitest
   - フロントエンドのコンポーネントテスト
     - vitest + Testing Library
 - E2Eテスト
-  - `*.test.ts` で実行とする（広いテスト）
   - Playwright
 
 ## DIの実装
