@@ -16,8 +16,8 @@ export class TaskUseCase {
     TYPES.ITaskRepository
   );
 
-  create(taskName: string, userId: UserId, dueDate: Date): TaskId {
-    const task = Task.create(new TaskName(taskName), userId, dueDate);
+  create(taskName: string): TaskId {
+    const task = Task.create(new TaskName(taskName), new UserId(), new Date());
     this.taskRepository.insert(task);
     return task.id;
   }

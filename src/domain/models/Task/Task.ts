@@ -45,7 +45,7 @@ export class TaskName {
  */
 export interface ITaskRepository {
   getAll(): Task[];
-  findById(taskId: TaskId): Task;
+  findById(taskId: TaskId): Task | undefined;
   insert(task: Task): void;
-  update(task: Task): void;
+  update(options: { taskId: TaskId; taskName: string; userId: UserId }): void;
 }

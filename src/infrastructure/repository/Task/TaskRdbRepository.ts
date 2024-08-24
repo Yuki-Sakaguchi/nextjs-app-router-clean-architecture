@@ -51,7 +51,15 @@ export class TaskRdbRepository implements ITaskRepository {
     console.log("taskをインサートしました");
   }
 
-  update(task: Task): void {
+  update({
+    taskId,
+    taskName,
+    userId,
+  }: {
+    taskId: TaskId;
+    taskName: string;
+    userId: UserId;
+  }): void {
     // TODO: 実際はDBのTaskを更新する
     console.log("taskrdbrepository update");
     console.log("taskをアップデートしました");

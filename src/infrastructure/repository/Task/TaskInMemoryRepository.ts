@@ -6,6 +6,7 @@ import {
   TaskName,
   UserId,
 } from "@/domain/models";
+import { inMemory } from "@/infrastructure/adapter/db/InMemoryDB";
 
 /**
  * タスクリポジトリ
@@ -15,45 +16,33 @@ import {
 export class TaskInMemoryRepository implements ITaskRepository {
   getAll() {
     console.log("TaskInMemoryRepository getAll");
-    // TODO: 実際はDBから取得したタスクを返す
-    const taskRaw = {
-      taskName: "new task name",
-      userId: new UserId(),
-      dueDate: new Date(),
-    };
-    const task = Task.create(
-      new TaskName(taskRaw.taskName),
-      taskRaw.userId,
-      taskRaw.dueDate
-    );
-    return [task];
+    return inMemory.tasks;
   }
 
-  findById(taskId: TaskId): Task {
-    // TODO: 実際はDBから取得したタスクを返す
+  findById(taskId: TaskId): Task | undefined {
     console.log("TaskInMemoryRepository findById");
-    const taskRaw = {
-      taskName: "new task name",
-      userId: new UserId(),
-      dueDate: new Date(),
-    };
-    const task = Task.create(
-      new TaskName(taskRaw.taskName),
-      taskRaw.userId,
-      taskRaw.dueDate
-    );
-    return task;
+    return inMemory.tasks.find((task) => task.id === taskId);
   }
 
   insert(task: Task): void {
-    // TODO: 実際はDBにTaskを追加する
     console.log("TaskInMemoryRepository insert");
     console.log("taskをインサートしました");
+    inMemory.tasks.push(task);
   }
 
-  update(task: Task): void {
-    // TODO: 実際はDBのTaskを更新する
+  update({
+    taskId,
+    taskName,
+    userId,
+  }: {
+    taskId: TaskId;
+    taskName: string;
+    userId: UserId;
+  }): void {
     console.log("TaskInMemoryRepository update");
     console.log("taskをアップデートしました");
+    const task = inMemory.tasks.find((task) => task.id === taskId);
+    if (task == null) return;
+    task.name = new TaskName(taskName);
   }
 }
