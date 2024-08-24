@@ -15,19 +15,20 @@ import { inMemory } from "@/infrastructure/adapter/db/InMemoryDB";
 @injectable()
 export class TaskInMemoryRepository implements ITaskRepository {
   getAll() {
-    console.log("TaskInMemoryRepository getAll");
+    console.log("TaskInMemoryRepository getAll", inMemory.tasks);
     return inMemory.tasks;
   }
 
   findById(taskId: TaskId): Task | undefined {
-    console.log("TaskInMemoryRepository findById");
-    return inMemory.tasks.find((task) => task.id === taskId);
+    const task = inMemory.tasks.find((task) => task.id === taskId);
+    console.log("TaskInMemoryRepository findById", task);
+    return task;
   }
 
   insert(task: Task): void {
     console.log("TaskInMemoryRepository insert");
-    console.log("taskをインサートしました");
     inMemory.tasks.push(task);
+    console.log("taskをインサートしました", inMemory.tasks);
   }
 
   update({
