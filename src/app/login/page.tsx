@@ -6,6 +6,7 @@ export default async function LoginPage() {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();
+  const isLogin = !error && data.user;
   // if (error || !data?.user) {
   //   redirect("/login");
   // }
@@ -13,7 +14,7 @@ export default async function LoginPage() {
   return (
     <main className="w-screen h-screen flex justify-center items-center">
       <form className="border border-gray-200 rounded-md py-8 px-12 flex flex-col shadow-md gap-4 w-[500px]">
-        {error || !data?.user ? (
+        {!isLogin ? (
           <>
             <div className="flex flex-col">
               <label htmlFor="email">Email</label>
@@ -51,14 +52,14 @@ export default async function LoginPage() {
             </div>
           </>
         ) : (
-          <>
+          <div className="flex justify-center">
             <button
               formAction={logout}
-              className="rounded-md bg-black text-white py-2 px-3 transition-colors hover:bg-gray-800"
+              className="rounded-md bg-black text-white py-2 px-3 transition-colors hover:bg-gray-800 max-w-24"
             >
               logout
             </button>
-          </>
+          </div>
         )}
       </form>
     </main>
