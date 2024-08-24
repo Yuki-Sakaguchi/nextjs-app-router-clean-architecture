@@ -117,6 +117,50 @@ https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main
 https://github.com/Yuki-Sakaguchi/nextjs-app-router-clean-architecture/blob/main/src/instrumentation.ts  
 https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation  
 
+## Prisma のセットアップ
+
+関連ライブラリをインストール
+
+```bash
+npm install prisma --save-dev
+npm install @prisma/client
+```
+
+Prisma の初期化
+
+```bash
+npx prisma init
+```
+
+Supabase から schema を取得  
+これでエラーが出たので設定を追加してから叩いたらできた
+
+```prisma
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"] // 追加
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["auth", "public"] // 追加
+}
+```
+
+```bash
+npx prisma db pull
+```
+
+prisma client が生成されるらしい
+
+```bash
+npx prisma generate
+```
+
+- https://zenn.dev/kiriyama/articles/89bac9034bbe7a
+- https://www.prisma.io/docs/orm/more/development-environment/environment-variables/using-multiple-env-files
+- https://zenn.dev/masatotezuka/articles/supabase_prisma_20230826 
 
 
 ## TODO
