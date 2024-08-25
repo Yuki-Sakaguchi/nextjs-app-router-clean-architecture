@@ -67,11 +67,10 @@ export class TaskInMemoryRepository implements ITaskRepository {
     // });
     const supabase = createClient();
     try {
-      console.log("task", task);
       const { error } = await supabase.from("Task").insert({
         title: task.name.value,
         content: task.name.value,
-        user_id: "b678ffbc-c78f-44d4-bd3d-870b4e5b026f", // task.userId.value,
+        user_id: "b678ffbc-c78f-44d4-bd3d-870b4e5b026f", // task.userId.value, // FIXME一旦、自分のユーザーに固定している
         is_completed: false,
       });
       if (error) {
