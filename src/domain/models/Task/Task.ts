@@ -1,5 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
-
+import { UuidFactory } from "@/utils/uuid";
 import { UserId } from "../User";
 
 /**
@@ -16,9 +15,18 @@ export class Task {
   /**
    * タスクを生成する
    */
-  static create(name: TaskName, userId: UserId, dueDate: Date): Task {
-    const id = new TaskId();
-    return new Task(id, name, userId, dueDate);
+  static create({
+    id,
+    name,
+    userId,
+    dueDate,
+  }: {
+    id?: TaskId;
+    name: TaskName;
+    userId: UserId;
+    dueDate: Date;
+  }): Task {
+    return new Task(id ?? new TaskId(), name, userId, dueDate);
   }
 }
 
@@ -26,7 +34,11 @@ export class Task {
  * タスクID
  */
 export class TaskId {
-  public value = uuidv4();
+  constructor(public value = UuidFactory.generate()) {
+    if (!UuidFactory.validate(value)) {
+      throw new Error("IDの形式が正しくありません");
+    }
+  }
 }
 
 /**
@@ -44,8 +56,8 @@ export class TaskName {
  * リポジトリのインターフェース
  */
 export interface ITaskRepository {
-  getAll(): Task[];
+  getAll(): Promise<Task[]>;
   findById(taskId: TaskId): Task | undefined;
-  insert(task: Task): void;
+  insert(task: Task): Promise<void>;
   update(options: { taskId: TaskId; taskName: string; userId: UserId }): void;
 }

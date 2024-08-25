@@ -1,17 +1,18 @@
 "use client";
 
-import { Task } from "@/domain/models";
 import { TaskList } from "@/components/TaskList";
 import { createTask } from "./actions";
 import { useActionStateCompat } from "@/hooks/useActionStateCompat";
+import { TaskDTO } from "@/usecase";
 
-export function Client({ tasks }: { tasks: Task[] }) {
+export function Client({ tasks }: { tasks: TaskDTO[] }) {
   const [state, submitAction, isPending] = useActionStateCompat(createTask, {
     error: false,
     message: null,
   });
   return (
     <main className="m-4">
+      {state.message ?? <p>{state.message}</p>}
       <form action={submitAction}>
         <div>
           <input

@@ -13,6 +13,7 @@ export function useActionStateCompat<State>(
   initialState: Awaited<State>,
   permalink?: string
 ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
+
 export function useActionStateCompat<State, Payload>(
   action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
   initialState: Awaited<State>,
@@ -22,6 +23,7 @@ export function useActionStateCompat<State, Payload>(
   dispatch: (payload: Payload) => void,
   isPending: boolean
 ];
+
 export function useActionStateCompat<State, Payload>(
   action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
   initialState: Awaited<State>,

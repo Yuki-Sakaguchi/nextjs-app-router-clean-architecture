@@ -1,5 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
+import { UuidFactory } from "@/utils/uuid";
 
 export class UserId {
-  public value = uuidv4();
+  constructor(public value = UuidFactory.generate()) {
+    if (!UuidFactory.validate(value)) {
+      throw new Error("IDの形式が正しくありません");
+    }
+  }
 }

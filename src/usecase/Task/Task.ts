@@ -17,12 +17,44 @@ export class TaskUseCase {
   );
 
   create(taskName: string): TaskId {
-    const task = Task.create(new TaskName(taskName), new UserId(), new Date());
+    const task = Task.create({
+      name: new TaskName(taskName),
+      userId: new UserId(),
+      dueDate: new Date(),
+    });
     this.taskRepository.insert(task);
     return task.id;
   }
 
-  getAll(): Task[] {
-    return this.taskRepository.getAll();
+  async getAll(): Promise<TaskDTO[]> {
+    const tasks = await this.taskRepository.getAll();
+    return tasks.map((task) => TaskDTOFactory.toDTO(task));
+  }
+}
+
+export class TaskGetAllInput {
+  // input data
+}
+
+export class TaskGetAllOutput {
+  // output data
+}
+
+export type TaskDTO = {
+  id: string;
+  name: string;
+  userId: string;
+  dueDate: Date;
+};
+
+// DTO
+export class TaskDTOFactory {
+  static toDTO(task: Task): TaskDTO {
+    return {
+      id: task.id.value,
+      name: task.name.value,
+      userId: task.userId.value,
+      dueDate: task.dueDate,
+    };
   }
 }
