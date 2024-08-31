@@ -26,6 +26,12 @@ export class TaskUseCase {
     return task.id;
   }
 
+  delete(id: string): TaskId {
+    const taskId = new TaskId(id);
+    this.taskRepository.delete(taskId);
+    return taskId;
+  }
+
   async getAll(): Promise<TaskDTO[]> {
     const tasks = await this.taskRepository.getAll();
     return tasks.map((task) => TaskDTOFactory.toDTO(task));

@@ -60,4 +60,5 @@ export interface ITaskRepository {
   findById(taskId: TaskId): Task | undefined;
   insert(task: Task): Promise<void>;
   update(options: { taskId: TaskId; taskName: string; userId: UserId }): void;
+  delete(taskId: TaskId): Promise<void>;
 }

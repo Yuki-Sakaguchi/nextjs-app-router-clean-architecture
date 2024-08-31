@@ -99,4 +99,22 @@ export class TaskInMemoryRepository implements ITaskRepository {
     // if (task == null) return;
     // task.name = new TaskName(taskName);
   }
+
+  async delete(taskId: TaskId) {
+    const supabase = createClient();
+    try {
+      const { error } = await supabase
+        .from("Task")
+        .delete()
+        .eq("id", taskId.value);
+      if (error) {
+        throw new Error("タスクの削除に失敗しました");
+      } else {
+        console.log("タスクの削除に成功しました");
+      }
+    } catch (e) {
+      console.error(e);
+      if (e instanceof Error) throw new Error(e.message);
+    }
+  }
 }

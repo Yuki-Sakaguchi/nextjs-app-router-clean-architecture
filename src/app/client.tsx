@@ -12,7 +12,6 @@ export function Client({ tasks }: { tasks: TaskDTO[] }) {
   });
   return (
     <main className="m-4">
-      {state.message ?? <p>{state.message}</p>}
       <form action={submitAction}>
         <div>
           <input

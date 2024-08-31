@@ -24,3 +24,16 @@ export async function createTask(
   revalidatePath("/");
   return { error: false, message: "タスクを追加しました" };
 }
+
+export async function deleteAction(taskId: string) {
+  try {
+    await new TaskUseCase().delete(taskId);
+  } catch (e) {
+    if (e instanceof Error) {
+      return { error: true, message: e.message };
+    }
+  }
+  console.log("task を削除しました");
+  revalidatePath("/");
+  return { error: false, message: "タスクを削除しました" };
+}

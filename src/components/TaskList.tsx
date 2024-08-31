@@ -1,4 +1,4 @@
-import { Task } from "@/domain/models";
+import { deleteAction } from "@/app/actions";
 import { TaskDTO } from "@/usecase";
 
 type Props = {
@@ -20,6 +20,14 @@ export function TaskList({ tasks }: Props) {
           date: {task.dueDate.toDateString()}
           <br />
           userId: {task.userId}
+          <br />
+          <br />
+          <button
+            className="rounded-md bg-black text-white py-2 px-3 transition-colors hover:bg-gray-800"
+            onClick={() => deleteAction(task.id)}
+          >
+            delete
+          </button>
         </li>
       ))}
     </ul>
