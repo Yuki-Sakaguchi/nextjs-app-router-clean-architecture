@@ -6,8 +6,6 @@ import {
   TaskName,
   UserId,
 } from "@/domain/models";
-// import { inMemory } from "@/infrastructure/adapter/db/InMemoryDB";
-// import { prisma } from "@/infrastructure/adapter/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -16,11 +14,12 @@ import { createClient } from "@/lib/supabase/server";
  */
 @injectable()
 export class TaskInMemoryRepository implements ITaskRepository {
+  private db = createClient();
+
   async getAll() {
     console.log("TaskInMemoryRepository getAll");
-    const supabase = createClient();
     try {
-      const { data, error } = await supabase
+      const { data, error } = await this.db
         .from("Task")
         .select("*")
         .order("created_at");
@@ -54,20 +53,8 @@ export class TaskInMemoryRepository implements ITaskRepository {
 
   async insert(task: Task) {
     console.log("TaskInMemoryRepository insert");
-    // inMemory.tasks.push(task);
-    // console.log("taskをインサートしました", inMemory.tasks);
-    // const supabase = createClient();
-    // const { data, error } = await supabase.auth.getUser();
-    // await prisma.task.create({
-    //   data: {
-    //     title: task.name.value,
-    //     content: task.name.value,
-    //     users: {},
-    //   },
-    // });
-    const supabase = createClient();
     try {
-      const { error } = await supabase.from("Task").insert({
+      const { error } = await this.db.from("Task").insert({
         title: task.name.value,
         content: task.name.value,
         user_id: "b678ffbc-c78f-44d4-bd3d-870b4e5b026f", // task.userId.value, // FIXME一旦、自分のユーザーに固定している
@@ -101,9 +88,8 @@ export class TaskInMemoryRepository implements ITaskRepository {
   }
 
   async delete(taskId: TaskId) {
-    const supabase = createClient();
     try {
-      const { error } = await supabase
+      const { error } = await this.db
         .from("Task")
         .delete()
         .eq("id", taskId.value);
