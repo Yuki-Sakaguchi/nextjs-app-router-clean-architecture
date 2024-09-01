@@ -16,19 +16,19 @@ export class TaskUseCase {
     TYPES.ITaskRepository
   );
 
-  create(taskName: string): TaskId {
+  async create(taskName: string): Promise<TaskId> {
     const task = Task.create({
       name: new TaskName(taskName),
       userId: new UserId(),
       dueDate: new Date(),
     });
-    this.taskRepository.insert(task);
+    await this.taskRepository.insert(task);
     return task.id;
   }
 
-  delete(id: string): TaskId {
+  async delete(id: string): Promise<TaskId> {
     const taskId = new TaskId(id);
-    this.taskRepository.delete(taskId);
+    await this.taskRepository.delete(taskId);
     return taskId;
   }
 
