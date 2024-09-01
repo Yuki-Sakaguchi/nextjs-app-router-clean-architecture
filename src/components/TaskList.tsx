@@ -1,4 +1,4 @@
-import { deleteAction } from "@/app/actions";
+import { deleteAction } from "@/actions/Task";
 import { TaskDTO } from "@/usecase";
 
 type Props = {
