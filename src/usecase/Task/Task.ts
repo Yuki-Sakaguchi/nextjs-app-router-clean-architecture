@@ -7,6 +7,7 @@ import {
 } from "@/domain/models";
 import { TYPES } from "@/di/types";
 import { container } from "@/di/config";
+import { TaskDTO } from "@/dtos/Task";
 
 /**
  * タスクを生成する
@@ -32,35 +33,8 @@ export class TaskUseCase {
     return taskId;
   }
 
-  async getAll(): Promise<TaskDTO[]> {
+  async getAll(): Promise<Task[]> {
     const tasks = await this.taskRepository.getAll();
-    return tasks.map((task) => TaskDTOFactory.toDTO(task));
-  }
-}
-
-export class TaskGetAllInput {
-  // input data
-}
-
-export class TaskGetAllOutput {
-  // output data
-}
-
-export type TaskDTO = {
-  id: string;
-  name: string;
-  userId: string;
-  dueDate: Date;
-};
-
-// DTO
-export class TaskDTOFactory {
-  static toDTO(task: Task): TaskDTO {
-    return {
-      id: task.id.value,
-      name: task.name.value,
-      userId: task.userId.value,
-      dueDate: task.dueDate,
-    };
+    return tasks;
   }
 }

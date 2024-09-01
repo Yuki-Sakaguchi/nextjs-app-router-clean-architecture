@@ -1,5 +1,5 @@
 import { deleteAction } from "@/actions/Task";
-import { TaskDTO } from "@/usecase";
+import { TaskDTO } from "@/dtos/Task";
 
 type Props = {
   tasks: TaskDTO[];

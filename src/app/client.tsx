@@ -3,7 +3,7 @@
 import { TaskList } from "@/components/TaskList";
 import { createTask } from "@/actions/Task";
 import { useActionStateCompat } from "@/hooks/useActionStateCompat";
-import { TaskDTO } from "@/usecase";
+import { TaskDTO } from "@/dtos/Task";
 
 export function Client({ tasks }: { tasks: TaskDTO[] }) {
   const [state, submitAction, isPending] = useActionStateCompat(createTask, {
