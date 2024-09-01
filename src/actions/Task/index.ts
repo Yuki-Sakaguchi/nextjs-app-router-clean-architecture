@@ -3,15 +3,15 @@
 import { TaskUseCase } from "@/usecase";
 import { revalidatePath } from "next/cache";
 
-type FromState = {
+type FormState = {
   error: boolean;
   message: string | null;
 };
 
 export async function createTask(
-  _state: FromState | null,
+  _state: FormState | null,
   formData: FormData
-): Promise<FromState> {
+): Promise<FormState> {
   const taskName = formData.get("taskName") as string;
   try {
     new TaskUseCase().create(taskName);
@@ -25,7 +25,11 @@ export async function createTask(
   return { error: false, message: "タスクを追加しました" };
 }
 
-export async function deleteAction(taskId: string) {
+export async function deleteAction(
+  _state: FormState | null,
+  formData: FormData
+): Promise<FormState> {
+  const taskId = formData.get("taskId") as string;
   try {
     await new TaskUseCase().delete(taskId);
   } catch (e) {

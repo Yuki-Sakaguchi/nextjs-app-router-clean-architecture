@@ -27,7 +27,7 @@ export function Client({ tasks }: { tasks: TaskDTO[] }) {
         </div>
         <div className="mt-2">
           <button
-            className="rounded-md bg-black text-white py-2 px-3 transition-colors hover:bg-gray-800"
+            className="rounded-md bg-black text-white py-2 px-3 transition-colors hover:bg-gray-800 disabled:opacity-50"
             disabled={isPending}
           >
             create task
